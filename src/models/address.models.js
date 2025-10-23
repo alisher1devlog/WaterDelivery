@@ -1,18 +1,31 @@
-// import mongoose, { model, Schema } from "mongoose"
+import mongoose, { model, Schema } from "mongoose"
 
 const addressSchema = new Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+    },
     customer_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "customer"
+        ref: "customer",
+        required: true,
     },
-    address: String,
-    location: String,
+    address: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    location: {
+        type: String,
+        trim: true,
+    },
     district_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "district"
-    }
-}, { timestamps: true })
+        ref: "district",
+    },
+}, { timestamps: true });
+
 
 const addressModel = model("address", addressSchema);
 
