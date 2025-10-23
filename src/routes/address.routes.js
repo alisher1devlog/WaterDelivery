@@ -7,6 +7,7 @@ router.get("/",addressController.getAllAddress);
 router.get("/:id",addressController.getOneAddress);
 router.post("/",addressController.createAddress);
 router.patch("/:id",addressController.updateAddress);
-router.delete("/:id",addressController.deleteAdsress);
+router.delete("/:id",addressController.deleteAddress);
 
 
+export { router as addressRouter}

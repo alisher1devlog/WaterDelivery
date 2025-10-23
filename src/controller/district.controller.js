@@ -2,21 +2,56 @@ import districtModel from "../models/district.models.js";
 
 
 const districtController = {
-    
-    getAllDistrict: async (req,res,next)=>{
 
+    getAllDistrict: async (req, res, next) => {
+        try {
+            const districts = await districtModel.find();
+            res.send(districts)
+        } catch (e) {
+            next(e)
+        }
     },
-    getOneDistrict: async (req,res,next)=>{
-        
-    },
-    createDistrict: async (req,res,next)=>{
+    getOneDistrict: async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const district = await districtModel.findOne({ _id: id });
 
+            res.send(district);
+        } catch (e) {
+            next(e)
+        }
     },
-    updateDistrict: async (req,res,next)=>{
+    createDistrict: async (req, res, next) => {
+        try {
+            const district = req.body;
+            const newdistrict = await districtModel.create({ district });
 
+            res.send(newdistrict)
+        } catch (e) {
+            next(e)
+        }
     },
-    deleteDistrict:async(req,res,next)=>{
+    updateDistrict: async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const data = req.body;
 
+            const updateDistrict = await districtModel.updateOne({ _id: id }, { data });
+
+            res.send(updateDistrict);
+        } catch (e) {
+            next(e)
+        }
+    },
+    deleteDistrict: async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const deleteDistrict = await districtModel.deleteOne({ _id: id });
+
+            res.send(deleteDistrict);
+        } catch (e) {
+            next(e)
+        }
     }
 }
 
