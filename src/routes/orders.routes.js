@@ -3,10 +3,10 @@ import orderController from "../controller/orders.controller.js";
 
 const router = Router();
 
-router.get("/", orderController.getAllOrder);
-router.get("/:id", orderController.getOneOrder);
-router.post("/", orderController.createOrder);
-router.patch("/:id", orderController.updateOrder);
-router.delete("/:id", orderController.deleteOrder);
+router.get("/", orderController.get);
+router.get("/:id", orderController.getOne);
+router.post("/", orderController.create);
+router.patch("/:id", orderController.update);
+router.delete("/:id", orderController.delete);
 
 export { router as orderRouter }

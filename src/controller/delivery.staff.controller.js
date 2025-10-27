@@ -3,7 +3,7 @@ import deliveryModel from "../models/delivery.staff.models.js";
 
 const deliveryController = {
 
-    getAllDelivery: async (req, res, next) => {
+    get: async (req, res, next) => {
         try {
             const deliveries = await deliveryModel.find();
             res.send(deliveries)
@@ -12,7 +12,7 @@ const deliveryController = {
             next(e)
         }
     },
-    getOneDelivery: async (req, res, next) => {
+    getOne: async (req, res, next) => {
         try {
             const { id } = req.params;
             const delivery = await deliveryModel.findOne({ _id: id });
@@ -23,7 +23,7 @@ const deliveryController = {
             next(e)
         }
     },
-    createDelivery: async (req, res, next) => {
+    create: async (req, res, next) => {
         try {
             const delivery = req.body;
             const newdelivery = await deliveryModel.create({ delivery });
@@ -34,7 +34,7 @@ const deliveryController = {
             next(e)
         }
     },
-    updateDelivery: async (req, res, next) => {
+    update: async (req, res, next) => {
         try {
             const { id } = req.params;
             const data = req.body;
@@ -47,7 +47,7 @@ const deliveryController = {
             next(e)
         }
     },
-    deleteDelivery: async (req, res, next) => {
+    delete: async (req, res, next) => {
         try {
             const { id } = req.params;
             const deleteDelivery = await deliveryModel.deleteOne({ _id: id });

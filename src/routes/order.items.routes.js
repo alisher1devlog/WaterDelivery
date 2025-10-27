@@ -3,10 +3,10 @@ import orderItemsController from "../controller/order.items.controller.js";
 
 const router = Router();
 
-router.get("/", orderItemsController.getAllOrderItems);
-router.get("/:id", orderItemsController.getOneOrderItems);
-router.post("/", orderItemsController.createOrderItems);
-router.patch("/:id", orderItemsController.updateOrderItems);
-router.delete("/:id", orderItemsController.deleteOrderItems);
+router.get("/", orderItemsController.get);
+router.get("/:id", orderItemsController.getOne);
+router.post("/", orderItemsController.create);
+router.patch("/:id", orderItemsController.update);
+router.delete("/:id", orderItemsController.delete);
 
 export { router as orderItemsRouter }

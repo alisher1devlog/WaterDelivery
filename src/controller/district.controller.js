@@ -3,7 +3,7 @@ import districtModel from "../models/district.models.js";
 
 const districtController = {
 
-    getAllDistrict: async (req, res, next) => {
+    get: async (req, res, next) => {
         try {
             const districts = await districtModel.find();
             res.send(districts)
@@ -11,7 +11,7 @@ const districtController = {
             next(e)
         }
     },
-    getOneDistrict: async (req, res, next) => {
+    getOne: async (req, res, next) => {
         try {
             const { id } = req.params;
             const district = await districtModel.findOne({ _id: id });
@@ -21,7 +21,7 @@ const districtController = {
             next(e)
         }
     },
-    createDistrict: async (req, res, next) => {
+    create: async (req, res, next) => {
         try {
             const district = req.body;
             const newdistrict = await districtModel.create({ district });
@@ -31,7 +31,7 @@ const districtController = {
             next(e)
         }
     },
-    updateDistrict: async (req, res, next) => {
+    update: async (req, res, next) => {
         try {
             const { id } = req.params;
             const data = req.body;
@@ -43,7 +43,7 @@ const districtController = {
             next(e)
         }
     },
-    deleteDistrict: async (req, res, next) => {
+    delete: async (req, res, next) => {
         try {
             const { id } = req.params;
             const deleteDistrict = await districtModel.deleteOne({ _id: id });

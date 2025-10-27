@@ -3,10 +3,10 @@ import districtController from "../controller/district.controller.js";
 
 const router = Router();
 
-router.get("/", districtController.getAllDistrict);
-router.get("/:id", districtController.getOneDistrict);
-router.post("/", districtController.createDistrict);
-router.patch("/:id", districtController.updateDistrict);
-router.delete("/:id", districtController.deleteDistrict);
+router.get("/", districtController.get);
+router.get("/:id", districtController.getOne);
+router.post("/", districtController.create);
+router.patch("/:id", districtController.update);
+router.delete("/:id", districtController.delete);
 
 export { router as districtRouter }

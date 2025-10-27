@@ -3,7 +3,7 @@ import paymentsModel from "../models/payments.models.js";
 
 const paymentsController = {
 
-    getAllPayments: async (req, res, next) => {
+    get: async (req, res, next) => {
         try {
             const payments = await paymentsModel.find({});
 
@@ -12,7 +12,7 @@ const paymentsController = {
             next(e)
         }
     },
-    getOnePayments: async (req, res, next) => {
+    getOne: async (req, res, next) => {
         try {
             const { id } = req.params;
             const payment = await paymentsModel.findOne({ _id: id });
@@ -22,7 +22,7 @@ const paymentsController = {
             next(e)
         }
     },
-    createPayments: async (req, res, next) => {
+    create: async (req, res, next) => {
         try {
             const payment = req.body;
             const newPayment = await paymentsModel.create({ payment });
@@ -32,7 +32,7 @@ const paymentsController = {
             next(e)
         }
     },
-    updatePayments: async (req, res, next) => {
+    update: async (req, res, next) => {
         try {
             const { id } = req.params;
             const data = req.body;
@@ -44,7 +44,7 @@ const paymentsController = {
             next(e)
         }
     },
-    deletePayments: async (req, res, next) => {
+    delete: async (req, res, next) => {
         try {
             const { id } = req.params;
             const deletePayment = await paymentsModel.deleteOne({ _id: id });

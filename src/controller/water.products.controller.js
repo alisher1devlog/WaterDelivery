@@ -3,7 +3,7 @@ import waterProductModel from "../models/water.products.models.js";
 
 const waterProductController = {
 
-    getAllWater: async (req, res, next) => {
+    get: async (req, res, next) => {
         try {
             const waters = await waterProductModel.find({});
 
@@ -12,7 +12,7 @@ const waterProductController = {
             next(e)
         }
     },
-    getOneWater: async (req, res, next) => {
+    getOne: async (req, res, next) => {
         try {
             const { id } = req.params;
             const water = await waterProductModel.findOne({ _id: id });
@@ -22,7 +22,7 @@ const waterProductController = {
             next(e)
         }
     },
-    createWater: async (req, res, next) => {
+    create: async (req, res, next) => {
         try {
             const water = req.body;
             const newWater = await waterProductModel.create({ water });
@@ -32,7 +32,7 @@ const waterProductController = {
             next(e)
         }
     },
-    updateWater: async (req, res, next) => {
+    update: async (req, res, next) => {
         try {
             const { id } = req.params;
             const data = req.body;
@@ -44,7 +44,7 @@ const waterProductController = {
             next(e)
         }
     },
-    deleteWater: async (req, res, next) => {
+    delete: async (req, res, next) => {
         try {
             const { id } = req.params;
             const deleteWaterProduct = await waterProductModel.deleteOne({ _id: id });

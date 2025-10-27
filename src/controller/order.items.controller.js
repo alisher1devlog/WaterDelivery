@@ -4,7 +4,7 @@ import orderItemsModel from "../models/order.items.models.js";
 
 const orderItemsController = {
 
-    getAllOrderItems: async (req, res, next) => {
+    get: async (req, res, next) => {
         try {
             const orderItems = await orderItemsModel.find({});
 
@@ -13,7 +13,7 @@ const orderItemsController = {
             next(e)
         }
     },
-    getOneOrderItems: async (req, res, next) => {
+    getOne: async (req, res, next) => {
         try {
             const { id } = req.params;
             const orderItem = await orderItemsModel.findOne({ _id: id });
@@ -23,7 +23,7 @@ const orderItemsController = {
             next(e)
         }
     },
-    createOrderItems: async (req, res, next) => {
+    create: async (req, res, next) => {
         try {
             const orderItem = req.body;
             const neworderItem = await orderItemsModel.create({ orderItem });
@@ -33,7 +33,7 @@ const orderItemsController = {
             next(e)
         }
     },
-    updateOrderItems: async (req, res, next) => {
+    update: async (req, res, next) => {
         try {
             const { id } = req.params;
             const data = req.body;
@@ -45,7 +45,7 @@ const orderItemsController = {
             next(e)
         }
     },
-    deleteOrderItems: async (req, res, next) => {
+    delete: async (req, res, next) => {
         try {
             const { id } = req.params;
             const deleteOrderItems = await orderItemsModel.deleteOne({ _id: id });
