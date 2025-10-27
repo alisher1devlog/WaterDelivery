@@ -19,7 +19,7 @@ app.use("/delivery", deliveryRouter)
 app.use("/orderItems", orderItemsRouter)
 app.use("/order", orderRouter)
 app.use("/payments", paymentsRouter)
-app.use("waterProduct", waterProductRouter)
+app.use("/waterProduct", waterProductRouter)
 
 
 async function bootstrap() {

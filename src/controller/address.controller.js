@@ -2,7 +2,7 @@ import addressModel from "../models/address.models.js"
 
 const addressController = {
 
-    getAllAddress: async (req, res, next) => {
+    get: async (req, res, next) => {
         try {
             const address = await addressModel.find({});
 
@@ -11,7 +11,7 @@ const addressController = {
             next(e)
         }
     },
-    getOneAddress: async (req, res, next) => {
+    getOne: async (req, res, next) => {
         try {
             const { id } = req.params;
             const address = await addressModel.findById({ _id: id })
@@ -20,7 +20,7 @@ const addressController = {
             next(e)
         }
     },
-    createAddress: async (req, res, next) => {
+    create: async (req, res, next) => {
         try {
             const address = req.body;
             const newAddress = await addressModel.create({ address })
@@ -29,7 +29,7 @@ const addressController = {
             next(e)
         }
     },
-    updateAddress: async (req, res, next) => {
+    update: async (req, res, next) => {
         try {
             const { id } = req.params;
             const data = req.body;
@@ -40,7 +40,7 @@ const addressController = {
             next(e)
         }
     },
-    deleteAddress: async (req, res, next) => {
+    delete: async (req, res, next) => {
         try {
             const { id } = req.params;
             const deleteAddress = await addressModel.deleteOne({ _id: id });

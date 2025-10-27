@@ -3,7 +3,7 @@ import customerModel from "../models/customer.models.js"
 
 const customerController = {
 
-    getAllCustomer: async (req, res, next) => {
+    get: async (req, res, next) => {
         try {
             const customers = await customerModel.find({});
             res.send(customers)
@@ -12,7 +12,7 @@ const customerController = {
             next(e)
         }
     },
-    getOneCustomer: async (req, res, next) => {
+    getOne: async (req, res, next) => {
         try {
             const { id } = req.params;
             const customer = await customerModel.findOne({ _id: id });
@@ -22,7 +22,7 @@ const customerController = {
             next(e)
         }
     },
-    createCustomer: async (req, res, next) => {
+    create: async (req, res, next) => {
         try {
             const customer = req.body;
             const newCustomer = await customerModel.create(customer);
@@ -32,7 +32,7 @@ const customerController = {
             next(e)
         }
     },
-    updateCustomer: async (req, res, next) => {
+    update: async (req, res, next) => {
         try {
             const { id } = req.params;
             const data = req.body;
@@ -44,7 +44,7 @@ const customerController = {
             next(e)
         }
     },
-    deleteCustomer: async (req, res, next) => {
+    delete: async (req, res, next) => {
         try {
             const { id } = req.params;
             const deleteCustomer = await customerModel.deleteOne({ _id: id });
