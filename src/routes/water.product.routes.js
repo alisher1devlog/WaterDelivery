@@ -9,4 +9,4 @@ router.post("/", waterProductController.create);
 router.patch("/:id", waterProductController.update);
 router.delete("/:id", waterProductController.delete);
 
-export { router as waterProductRouter }
+export { router as waterProductRouter };

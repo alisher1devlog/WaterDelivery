@@ -1,7 +1,6 @@
 import { Router } from "express";
 import customerController from "../controller/customer.controller.js";
 
-
 const router = Router();
 
 router.get("/", customerController.get);
@@ -10,4 +9,4 @@ router.post("/", customerController.create);
 router.patch("/:id", customerController.update);
 router.delete("/:id", customerController.delete);
 
-export { router as customerRouter }
+export { router as customerRouter };

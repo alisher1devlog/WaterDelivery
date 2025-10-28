@@ -9,4 +9,4 @@ router.post("/", paymentsController.create);
 router.patch("/:id", paymentsController.update);
 router.delete("/:id", paymentsController.delete);
 
-export { router as paymentsRouter }
+export { router as paymentsRouter };
