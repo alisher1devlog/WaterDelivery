@@ -1,15 +1,14 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
-const secret = "qwer12345"
-
+const secret = "qwer12345";
 
 const payloadd = {
-    id: 12,
-    name: "Alisher",
-    role: "Student",
-    staffId: 212345
-}
+  id: 12,
+  name: "Alisher",
+  role: "Student",
+  staffId: 212345,
+};
 
-const token = jwt.sign(payloadd,secret)
+const token = jwt.sign(payloadd, secret);
 
 console.log(token);

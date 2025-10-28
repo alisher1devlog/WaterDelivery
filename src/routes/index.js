@@ -7,14 +7,13 @@ import { orderRouter } from "./orders.routes.js";
 import { paymentsRouter } from "./payments.routes.js";
 import { waterProductRouter } from "./water.product.routes.js";
 
-
 export {
-    addressRouter,
-    customerRouter,
-    deliveryRouter,
-    districtRouter,
-    orderItemsRouter,
-    orderRouter,
-    paymentsRouter,
-    waterProductRouter
-}
+  addressRouter,
+  customerRouter,
+  deliveryRouter,
+  districtRouter,
+  orderItemsRouter,
+  orderRouter,
+  paymentsRouter,
+  waterProductRouter,
+};

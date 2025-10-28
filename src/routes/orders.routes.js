@@ -9,4 +9,4 @@ router.post("/", orderController.create);
 router.patch("/:id", orderController.update);
 router.delete("/:id", orderController.delete);
 
-export { router as orderRouter }
+export { router as orderRouter };

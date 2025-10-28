@@ -9,4 +9,4 @@ router.post("/", districtController.create);
 router.patch("/:id", districtController.update);
 router.delete("/:id", districtController.delete);
 
-export { router as districtRouter }
+export { router as districtRouter };
