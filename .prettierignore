@@ -1,0 +1,7 @@
+# .prettierignore fayli
+
+node_modules/
+dist/
+build/
+coverage/
+*.log
