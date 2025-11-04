@@ -4,50 +4,69 @@ const customerController = {
   get: async (req, res, next) => {
     try {
       const customers = await customerModel.find({});
-      res.send(customers);
+      res.status(200).json({ success: true, data: customers });
     } catch (e) {
       next(e);
     }
   },
   getOne: async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const customer = await customerModel.findOne({ _id: id });
-      res.send(customer);
+      const customer = await customerModel.findById(req.params.id);
+      if (!customer) {
+        return res
+        .status(404)
+        .json({ success: false, message: `Mijoz topilmadi` });
+      }
+      res.status(200).json({ success: true, data: customer });
     } catch (e) {
       next(e);
     }
   },
   create: async (req, res, next) => {
     try {
-      const customer = req.body;
-      const newCustomer = await customerModel.create(customer);
-      res.send(newCustomer);
+      const newCustomer = await customerModel.create(req.body);
+      res.status(201).json({ success: true, data: newCustomer });
     } catch (e) {
       next(e);
     }
   },
   update: async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const data = req.body;
+      const updatedCustomer = await Customer.findByIdAndUpdate(
+      req.params.id, 
+      req.body,
+      {
+        new: true,
+        runValidators: true, 
+      }
+    );
 
-      const updateCustomer = await customerModel.updateOne(
-        { _id: id },
-        { data },
-      );
+    if (!updatedCustomer) {
+      return res
+        .status(404)
+        .json({ success: false, message: `Mijoz topilmadi` });
+    }
 
-      res.send(updateCustomer);
+    res.status(200).json({ success: true, data: updatedCustomer });
     } catch (e) {
       next(e);
     }
   },
   delete: async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const deleteCustomer = await customerModel.deleteOne({ _id: id });
+      const deletedCustomer = await Customer.findByIdAndDelete(req.params.id);
 
-      res.send(deleteCustomer);
+      if (!deletedCustomer) {
+      return res
+        .status(404)
+        .json({ success: false, message: `Mijoz topilmadi` });
+    }
+
+      res.status(200).json({
+      success: true,
+      message: `Mijoz muvaffaqiyatli ochirildi`,
+      data: deletedCustomer,
+    });
     } catch (e) {
       next(e);
     }
