@@ -3,12 +3,12 @@ import customerController from "../controller/customer.controller.js";
 
 const router = Router();
 
-router.route("/")
-    .get(customerController.get)
+router.route("/").get(customerController.get);
 
-router.route("/:id")
-    .get(customerController.getOne)
-    .patch("/:id", customerController.update)
-    .delete("/:id", customerController.delete)
+router
+  .route("/:id")
+  .get(customerController.getOne)
+  .patch(customerController.update)
+  .delete(customerController.delete);
 
 export { router as customerRouter };

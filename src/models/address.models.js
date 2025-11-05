@@ -26,7 +26,7 @@ const addressSchema = new Schema(
       ref: "district",
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const addressModel = model("address", addressSchema);

@@ -7,7 +7,7 @@ const districtSchema = new Schema(
       required: true,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const districtModel = model("district", districtSchema);

@@ -37,7 +37,7 @@ const paymentsController = {
 
       const updatePayment = await paymentsModel.updateOne(
         { _id: id },
-        { data },
+        { data }
       );
 
       res.send(updatePayment);

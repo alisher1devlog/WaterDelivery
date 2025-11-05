@@ -36,7 +36,7 @@ const deliveryController = {
 
       const updateDelivery = await deliveryModel.updateOne(
         { _id: id },
-        { data },
+        { data }
       );
 
       res.send(updateDelivery);

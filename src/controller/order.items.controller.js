@@ -37,7 +37,7 @@ const orderItemsController = {
 
       const updateOrderItem = await orderItemsModel.updateOne(
         { _id: id },
-        { data },
+        { data }
       );
 
       res.send(updateOrderItem);

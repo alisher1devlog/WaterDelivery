@@ -24,7 +24,7 @@ const deliverySchema = new Schema(
       required: true,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const deliveryModel = model("delivery", deliverySchema);

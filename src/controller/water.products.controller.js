@@ -37,7 +37,7 @@ const waterProductController = {
 
       const updateWater = await waterProductModel.updateOne(
         { _id: id },
-        { data },
+        { data }
       );
 
       res.send(updateWater);
