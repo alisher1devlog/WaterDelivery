@@ -19,7 +19,7 @@ const waterProductSchema = new Schema(
       min: [0, "Narx minusdan bo'lmasligi kerak"],
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const waterProductModel = model("waterProduct", waterProductSchema);

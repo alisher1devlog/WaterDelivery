@@ -22,7 +22,7 @@ const ordersSchema = new Schema(
       default: "pending",
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const ordersModel = model("orders", ordersSchema);

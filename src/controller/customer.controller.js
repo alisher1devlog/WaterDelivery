@@ -14,8 +14,8 @@ const customerController = {
       const customer = await customerModel.findById(req.params.id);
       if (!customer) {
         return res
-        .status(404)
-        .json({ success: false, message: `Mijoz topilmadi` });
+          .status(404)
+          .json({ success: false, message: `Mijoz topilmadi` });
       }
       res.status(200).json({ success: true, data: customer });
     } catch (e) {
@@ -32,41 +32,41 @@ const customerController = {
   },
   update: async (req, res, next) => {
     try {
-      const updatedCustomer = await Customer.findByIdAndUpdate(
-      req.params.id, 
-      req.body,
-      {
-        new: true,
-        runValidators: true, 
+      const updatedCustomer = await customerModel.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+
+      if (!updatedCustomer) {
+        return res
+          .status(404)
+          .json({ success: false, message: `Mijoz topilmadi` });
       }
-    );
 
-    if (!updatedCustomer) {
-      return res
-        .status(404)
-        .json({ success: false, message: `Mijoz topilmadi` });
-    }
-
-    res.status(200).json({ success: true, data: updatedCustomer });
+      res.status(200).json({ success: true, data: updatedCustomer });
     } catch (e) {
       next(e);
     }
   },
   delete: async (req, res, next) => {
     try {
-      const deletedCustomer = await Customer.findByIdAndDelete(req.params.id);
+      const deletedCustomer = await customerModel.findByIdAndDelete(req.params.id);
 
       if (!deletedCustomer) {
-      return res
-        .status(404)
-        .json({ success: false, message: `Mijoz topilmadi` });
-    }
+        return res
+          .status(404)
+          .json({ success: false, message: `Mijoz topilmadi` });
+      }
 
       res.status(200).json({
-      success: true,
-      message: `Mijoz muvaffaqiyatli ochirildi`,
-      data: deletedCustomer,
-    });
+        success: true,
+        message: `Mijoz muvaffaqiyatli ochirildi`,
+        data: deletedCustomer,
+      });
     } catch (e) {
       next(e);
     }

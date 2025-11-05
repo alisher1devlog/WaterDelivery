@@ -28,7 +28,7 @@ const paymentsSchema = new Schema(
       default: "completed",
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const paymentsModel = model("payment", paymentsSchema);

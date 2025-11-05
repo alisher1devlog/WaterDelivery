@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import config from './index.js'; 
+import mongoose from "mongoose";
+import config from "./index.js";
 
 export const connectDB = async () => {
   try {
@@ -8,6 +8,6 @@ export const connectDB = async () => {
     console.log(`MongoDBga muvaffaqiyatli ulanildi: ${conn.connection.host}`);
   } catch (error) {
     console.error(`MongoDBga ulanishda xatolik: ${error.message}`);
-    process.exit(1); 
+    process.exit(1);
   }
 };

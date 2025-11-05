@@ -36,7 +36,7 @@ const districtController = {
 
       const updateDistrict = await districtModel.updateOne(
         { _id: id },
-        { data },
+        { data }
       );
 
       res.send(updateDistrict);

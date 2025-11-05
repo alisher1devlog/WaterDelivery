@@ -1,9 +1,15 @@
 import { Router } from "express";
-import customerController from "../controller/customer.controller.js";
+import authController from "../controller/auth.controller.js";
+import { validate } from "../middleware/validation.middleware.js";
+import { signInSchema, signUpSchema } from "../validation/auth.validation.js";
+import { authGuard } from "../middleware/auth.middleware.js";
 
-//Login
-export const loginRouter = Router();
-loginRouter.post("/", customerController.create);
-//Register
-export const registerRouter = Router();
-registerRouter.post("/",customerController)
+const router = Router();
+
+router.post("/signup", validate(signUpSchema), authController.signup);
+
+router.post("/signin", validate(signInSchema), authController.signin);
+
+router.get("/profile", authGuard, authController.profile);
+
+export { router as authRouter };
