@@ -6,7 +6,6 @@ import {
   addressRouter,
   customerRouter,
   deliveryRouter,
-  orderItemsRouter,
   orderRouter,
   paymentsRouter,
   waterProductRouter,
@@ -21,14 +20,13 @@ app.use(cookieParser());
 app.use(morgan("tiny"));
 
 app.use("/auth", authRouter);
-app.use("/address", addressRouter);
 app.use("/customer", customerRouter);
-app.use("/district", districtRouter);
-app.use("/delivery", deliveryRouter);
-app.use("/orderItems", orderItemsRouter);
-app.use("/order", orderRouter);
+app.use("/districts", districtRouter);
+app.use("/address", addressRouter);
+app.use("/water-product", waterProductRouter);
+app.use("/delivery-staff", deliveryRouter);
+app.use("/orders", orderRouter);
 app.use("/payments", paymentsRouter);
-app.use("/waterProduct", waterProductRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "WaterDelivery API ishlamoqda!" });

@@ -32,7 +32,7 @@ export const authGuard = async (req, res, next) => {
     req.customer = customer;
 
     next();
-  } catch  {
+  } catch {
     return next(
       new apiError(401, "Ruxsat yo'q. Token yaroqsiz yoki muddati o'tgan.")
     );

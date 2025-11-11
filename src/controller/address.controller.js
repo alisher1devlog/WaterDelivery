@@ -1,50 +1,90 @@
+import apiError from "../middleware/api.error.js";
 import addressModel from "../models/address.models.js";
-
+import districtModel from "../models/district.models.js";
 const addressController = {
-  get: async (req, res, next) => {
+  getAllMyAddresses: async (req, res, next) => {
     try {
-      const address = await addressModel.find({});
-
-      res.send(address);
+      const address = await addressModel.findById({
+        customerId: req.customer._id,
+      });
+      res.status(200).json({
+        success: true,
+        data: address,
+      });
     } catch (e) {
       next(e);
     }
   },
-  getOne: async (req, res, next) => {
+  createAddress: async (req, res, next) => {
+    try {
+      const { name, districtId, address, location } = req.body;
+
+      const district = await districtModel.findById(districtId);
+      if (!district) {
+        return next(new apiError(400, "Bunday tuman mavjud emas"));
+      }
+
+      const newAddress = await addressModel.create({
+        name,
+        districtId,
+        address,
+        location,
+        customerId: req.customer_id,
+      });
+
+      res.status(201).json({
+        success: true,
+        data: newAddress,
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
+  updateAddress: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const address = await addressModel.findById({ _id: id });
-      res.send(address);
+      const customerId = req.customer._id;
+
+      const address = await addressModel.findById(id);
+      if (!address) {
+        return next(new apiError(404, `Manzil topilmadi!`));
+      }
+      if (address.customer_id.toString() !== customerId.toString()) {
+        return next(new apiError(403, `Bu sizning manzilingiz emas!`));
+      }
+
+      const updateAddress = await addressModel.findOneAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+
+      res.status(200).json({
+        success: true,
+        data: updateAddress,
+      });
     } catch (e) {
       next(e);
     }
   },
-  create: async (req, res, next) => {
-    try {
-      const address = req.body;
-      const newAddress = await addressModel.create({ address });
-      res.send(newAddress);
-    } catch (e) {
-      next(e);
-    }
-  },
-  update: async (req, res, next) => {
+  deleteAddress: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const data = req.body;
-      const updateAddress = await addressModel.updateOne({ _id: id }, { data });
+      const customerId = req.customer._id;
 
-      res.send(updateAddress);
-    } catch (e) {
-      next(e);
-    }
-  },
-  delete: async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const deleteAddress = await addressModel.deleteOne({ _id: id });
+      const address = await addressModel.findById(id);
 
-      res.send(deleteAddress);
+      if (!address) {
+        return next(new apiError(404, `Manzil topilmadi!`));
+      }
+
+      if (address.customer_id.toString() !== customerId.toString()) {
+        return next(new apiError(403, `Bu sizning manzilingiz emas!`));
+      }
+
+      res.status(204).json({
+        success: true,
+        data: null,
+      });
     } catch (e) {
       next(e);
     }

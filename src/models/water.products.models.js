@@ -6,7 +6,6 @@ const waterProductSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      unique: true,
     },
     volume_liters: {
       type: Number,
@@ -15,8 +14,12 @@ const waterProductSchema = new Schema(
     },
     price: {
       type: Number,
-      required: true,
+      required: [true, `Mahsulot narxi kiritilishi shart`],
       min: [0, "Narx minusdan bo'lmasligi kerak"],
+    },
+    isInStock: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }

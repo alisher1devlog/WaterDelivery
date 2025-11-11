@@ -1,15 +1,15 @@
 import apiError from "./api.error.js";
 
-const handleDublicateFieldDB = (err) => {
+const handleDuplicateFieldDB = (err) => {
   const field = Object.keys(err.keyValue)[0];
   const value = err.keyValue[field];
-  const message = `${field} (${value} qiymati aloqachon mavjud siz "Sign In" qilishingiz kerak!)`;
+  const message = `${field} (${value}) qiymati allaqachon mavjud. Iltimos, Sign in qiling!.`;
   return new apiError(400, message);
 };
 
 const handleValidationErrorDB = (err) => {
   const errors = Object.values(err.errors).map((el) => el.message);
-  const message = `Kiritilgan ma'lumotlar notog'ri: ${errors.join(". ")}`;
+  const message = `Kiritilgan ma'lumotlar noto'g'ri: ${errors.join(". ")}`;
   return new apiError(400, message);
 };
 
@@ -25,10 +25,10 @@ const globalErrorHandler = (err, req, res) => {
   }
 
   if (err.code === 11000) {
-    error = handleDublicateFieldDB(err);
+    error = handleDuplicateFieldDB(err);
   }
 
-  res.status(err.statusCode).json({
+  res.status(error.statusCode).json({
     success: false,
     status: error.status || "error",
     message: error.message,

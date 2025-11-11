@@ -4,7 +4,9 @@ const districtSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, `Tuman nomi kiritilishi shart`],
+      unique: true,
+      trim: true,
     },
   },
   { timestamps: true }

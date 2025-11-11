@@ -4,7 +4,7 @@ import { generateToken } from "../utils/generateToken.js";
 import jwt from "jsonwebtoken";
 
 const authController = {
-  refresh: async (req, res, next) => {
+  updateAccess: async (req, res, next) => {
     try {
       const refreshToken = req.cookies.refreshToken;
 

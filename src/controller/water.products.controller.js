@@ -1,11 +1,15 @@
 import waterProductModel from "../models/water.products.models.js";
+import apiError from "../middleware/api.error.js";
 
 const waterProductController = {
   get: async (req, res, next) => {
     try {
-      const waters = await waterProductModel.find({});
+      const products = await waterProductModel.find({ isInStock: true });
 
-      res.send(waters);
+      res.status(200).json({
+        success: true,
+        data: products,
+      });
     } catch (e) {
       next(e);
     }
@@ -13,19 +17,38 @@ const waterProductController = {
   getOne: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const water = await waterProductModel.findOne({ _id: id });
+      const product = await waterProductModel.findById(id);
 
-      res.send(water);
+      if (!product) {
+        return next(new apiError(404`Bu IDga ega mahsulot topilmadi`));
+      }
+      res.status(200).json({
+        success: true,
+        data: product,
+      });
     } catch (e) {
       next(e);
     }
   },
   create: async (req, res, next) => {
     try {
-      const water = req.body;
-      const newWater = await waterProductModel.create({ water });
+      const { name, volume, price } = req.body;
+      if (!name || !volume || !price) {
+        return next(
+          new apiError(400, `Nomi, hajmi va narxi kiritilishi shart`)
+        );
+      }
 
-      res.send(newWater);
+      const newProduct = await waterProductModel.create({
+        name,
+        volume,
+        price,
+      });
+
+      res.status(201).json({
+        success: true,
+        data: newProduct,
+      });
     } catch (e) {
       next(e);
     }
@@ -33,14 +56,20 @@ const waterProductController = {
   update: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const data = req.body;
 
-      const updateWater = await waterProductModel.updateOne(
-        { _id: id },
-        { data }
+      const updateProduct = await waterProductModel.findByIdAndUpdate(
+        id,
+        req.body,
+        { new: true, runValidators: true }
       );
 
-      res.send(updateWater);
+      if (!updateProduct) {
+        return next(new apiError(404, `Bu IDga ega mahsulot topilmadi`));
+      }
+      res.status(200).json({
+        success: true,
+        data: updateProduct,
+      });
     } catch (e) {
       next(e);
     }
@@ -48,9 +77,15 @@ const waterProductController = {
   delete: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const deleteWaterProduct = await waterProductModel.deleteOne({ _id: id });
+      const deleteWaterProduct = await waterProductModel.findByIdAndDelete(id);
 
-      res.send(deleteWaterProduct);
+      if (!deleteWaterProduct) {
+        return next(new apiError(404, `Bu IDga ega mahsulot topilmadi`));
+      }
+      res.status(204).json({
+        success: true,
+        data: deleteWaterProduct,
+      });
     } catch (e) {
       next(e);
     }
