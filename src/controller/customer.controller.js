@@ -1,3 +1,4 @@
+import apiError from "../middleware/api.error.js";
 import customerModel from "../models/customer.models.js";
 
 const customerController = {
@@ -54,7 +55,9 @@ const customerController = {
   },
   delete: async (req, res, next) => {
     try {
-      const deletedCustomer = await customerModel.findByIdAndDelete(req.params.id);
+      const deletedCustomer = await customerModel.findByIdAndDelete(
+        req.params.id
+      );
 
       if (!deletedCustomer) {
         return res
@@ -67,6 +70,51 @@ const customerController = {
         message: `Mijoz muvaffaqiyatli ochirildi`,
         data: deletedCustomer,
       });
+    } catch (e) {
+      next(e);
+    }
+  },
+  getProfile: async (req, res) => {
+    res.status(200).json({
+      success: true,
+      data: req.customer,
+    });
+  },
+  updateProfile: async (req, res, next) => {
+    try {
+      const { firstName, lastName, phone } = req.body;
+      const customerId = req.customer._id;
+
+      const updatedCustomer = await customerModel
+        .findByIdAndUpdate(
+          customerId,
+          { firstName, lastName, phone },
+          { new: true, runValidators: true }
+        )
+        .select("-password");
+
+      if (!updatedCustomer) {
+        return next(new apiError(404, `Foydalanuvchi topilmadi`));
+      }
+
+      res.status(200).json({
+        success: true,
+        data: updatedCustomer,
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
+  deleteProfile: async (req, res, next) => {
+    try {
+      await customerModel.findByIdAndDelete(req.customer._id);
+
+      res.cookie("refreshToken", "", {
+        httpOnly: true,
+        expires: new Date(0),
+      });
+
+      res.status(204).json({ success: true, data: null });
     } catch (e) {
       next(e);
     }

@@ -1,12 +1,16 @@
 import { Router } from "express";
 import orderController from "../controller/orders.controller.js";
+import { authGuard } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.get("/", orderController.get);
-router.get("/:id", orderController.getOne);
-router.post("/", orderController.create);
-router.patch("/:id", orderController.update);
-router.delete("/:id", orderController.delete);
+router
+  .route("/")
+  .get(authGuard, orderController.getMyOrders)
+  .post(authGuard, orderController.createOrder);
+
+router.route("/:id").get(authGuard, orderController.getMyOrderById);
+
+router.patch("/cancel/:id", authGuard, orderController.cancelMyOrder);
 
 export { router as orderRouter };

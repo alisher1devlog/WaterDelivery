@@ -9,12 +9,7 @@ const paymentsSchema = new Schema(
     },
     amount: {
       type: Number,
-      required: true,
-      min: [0, "Qiymat minusdan bo'lmasligi kerak"],
-    },
-    payment_date: {
-      type: Date,
-      default: Date.now,
+      required: [true, "To'lov summasi kiritilishi shart"],
     },
     method: {
       type: String,
@@ -24,8 +19,8 @@ const paymentsSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "completed", "failed"],
-      default: "completed",
+      enum: ["processing", "completed", "failed"],
+      default: "processing",
     },
   },
   { timestamps: true }

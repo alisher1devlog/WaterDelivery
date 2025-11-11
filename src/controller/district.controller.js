@@ -1,10 +1,15 @@
+import apiError from "../middleware/api.error.js";
 import districtModel from "../models/district.models.js";
 
 const districtController = {
   get: async (req, res, next) => {
     try {
       const districts = await districtModel.find();
-      res.send(districts);
+
+      res.status(200).json({
+        success: true,
+        data: districts,
+      });
     } catch (e) {
       next(e);
     }
@@ -12,19 +17,32 @@ const districtController = {
   getOne: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const district = await districtModel.findOne({ _id: id });
+      const district = await districtModel.findById(id);
+      if (!district) {
+        return next(new apiError(404, `Bu ID ga eag tuman topilmadi!`));
+      }
 
-      res.send(district);
+      res.status(200).json({
+        success: true,
+        data: district,
+      });
     } catch (e) {
       next(e);
     }
   },
   create: async (req, res, next) => {
     try {
-      const district = req.body;
-      const newdistrict = await districtModel.create({ district });
+      const name = req.body;
+      if (!name) {
+        return next(new apiError(400, `Tuman nomi kiritilishi shart!`));
+      }
 
-      res.send(newdistrict);
+      const newdistrict = await districtModel.create({ name });
+
+      res.status(201).json({
+        success: true,
+        data: newdistrict,
+      });
     } catch (e) {
       next(e);
     }
@@ -32,14 +50,22 @@ const districtController = {
   update: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const data = req.body;
+      const name = req.body;
 
-      const updateDistrict = await districtModel.updateOne(
-        { _id: id },
-        { data }
+      const updateDistrict = await districtModel.findByIdAndUpdate(
+        id,
+        { name },
+        { new: true, runValidators: true }
       );
 
-      res.send(updateDistrict);
+      if (!updateDistrict) {
+        return next(new apiError(404, `Bu IDga aga tuman topilmadi!`));
+      }
+
+      res.status(200).json({
+        success: true,
+        data: updateDistrict,
+      });
     } catch (e) {
       next(e);
     }
@@ -47,9 +73,14 @@ const districtController = {
   delete: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const deleteDistrict = await districtModel.deleteOne({ _id: id });
-
-      res.send(deleteDistrict);
+      const deleteDistrict = await districtModel.findByIdAndDelete(id);
+      if (!deleteDistrict) {
+        return next(new apiError(404, `Bunday IDli tuman topilmadi!`));
+      }
+      res.status(204).json({
+        success: true,
+        data: null,
+      });
     } catch (e) {
       next(e);
     }

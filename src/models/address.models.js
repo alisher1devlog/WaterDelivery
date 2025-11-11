@@ -12,6 +12,11 @@ const addressSchema = new Schema(
       ref: "customer",
       required: true,
     },
+    districtId: {
+      type: Schema.Types.ObjectId,
+      ref: "district",
+      required: [true, "Tuman tanlanishi shart"],
+    },
     address: {
       type: String,
       required: true,
@@ -20,10 +25,6 @@ const addressSchema = new Schema(
     location: {
       type: String,
       trim: true,
-    },
-    district_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "district",
     },
   },
   { timestamps: true }
